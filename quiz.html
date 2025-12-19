@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Quiz</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Dashboard</a>
+  <a href="lessons.html">Lessons</a>
+  <a href="quiz.html">Tests</a>
+  <a href="progress.html">Progress</a>
+</nav>
+
+<div class="container">
+  <h2>Quiz: Functions</h2>
+
+  <div class="card" id="quiz"></div>
+  <button onclick="check()">Submit</button>
+  <div id="feedback"></div>
+</div>
+
+<script src="js/data.js"></script>
+<script>
+  const q = lessons.genMath.quiz[0];
+  quiz.innerHTML = q.question + q.choices.map(
+    (c, i) => `
+    <div>
+      <input type="radio" name="ans" value="${i}"> ${c}
+    </div>`
+  ).join("");
+
+  function check() {
+    const selected = document.querySelector('input[name="ans"]:checked');
+    if (!selected) return;
+
+    if (parseInt(selected.value) === q.answer) {
+      feedback.innerHTML = "<div class='feedback'>✅ Correct!</div>";
+    } else {
+      feedback.innerHTML = `
+        <div class='feedback'>
+          ❌ Incorrect.<br><br>
+          <strong>Explanation:</strong><br>
+          ${q.explanation}
+        </div>`;
+    }
+  }
+</script>
+</body>
+</html>
