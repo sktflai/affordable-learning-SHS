@@ -1,53 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Lessons</title>
+  <meta charset="UTF-8">
+  <title>Lessons - Grade 11 STEM</title>
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #FFF8F0; color: #333; }
+    nav { background-color: #D98C3D; padding: 10px; }
+    nav a { margin-right: 15px; color: white; text-decoration: none; font-weight: bold; }
+    .container { max-width: 900px; margin: 20px auto; padding: 20px; background: #FFF3E6; border-radius: 8px; }
+    h1, h2 { color: #8B4000; }
+    button { margin-top: 10px; background-color: #D98C3D; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 5px; }
+    button:hover { background-color: #BF6E2F; }
+    #video { display: inline-block; margin-top: 10px; color: #D98C3D; }
+  </style>
 </head>
 <body>
 
 <nav>
   <a href="index.html">Dashboard</a>
-  <a href="lessons.html">Lessons</a>
-  <a href="quiz.html">Tests</a>
-  <a href="#" onclick="loadLesson('genMath')">Gen Math</a>
+  <a href="quiz.html">Tests / Quizzes</a>
 </nav>
 
 <div class="container">
+  <h1>Grade 11 STEM Lessons</h1>
 
-  <!-- This will get replaced by the lesson title -->
-  <h2 id="lessonTitle">Select a Lesson</h2>
+  <label for="subjectSelect">Select Subject:</label>
+  <select id="subjectSelect" onchange="loadLesson(this.value)">
+    <option value="">-- Choose a Subject --</option>
+    <option value="oralComm">Oral Communication</option>
+    <option value="kompAtPan">Komunikasyon at Pananaliksik</option>
+    <option value="genMath">General Mathematics</option>
+    <option value="earthSci">Earth Science</option>
+    <option value="preCalc">Pre-Calculus</option>
+    <option value="empTech">Empowerment Technologies</option>
+    <option value="genChem">General Chemistry</option>
+    <option value="physEd">Physical Education & Health</option>
+  </select>
 
-  <!-- Buttons to switch between full lesson and summary -->
-  <button onclick="showLesson()">Lesson</button>
-  <button onclick="showSummary()">Summary</button>
-
-  <!-- Content will be inserted here by JS -->
-  <div class="card" id="content"></div>
-
-  <!-- Link to video -->
+  <h2 id="lessonTitle">Select a lesson from above</h2>
+  <div id="content"></div>
+  <a id="video" href="#" target="_blank">Watch related video</a>
   <br>
-  <a id="video" target="_blank">📺 Watch Related Videos</a>
-
+  <button onclick="showSummary()">View Summary</button>
+  <button onclick="showLesson()">View Full Lesson</button>
 </div>
 
 <script src="js/data.js"></script>
 <script>
-  let current;
+  let currentLesson = null;
 
   function loadLesson(id) {
-    current = lessons[id];
-    document.getElementById("lessonTitle").innerText = current.title;
-    showLesson();
-    document.getElementById("video").href = current.video;
-  }
-
-  function showLesson() {
-    document.getElementById("content").innerText = current.lesson;
+    if(!id) return;
+    currentLesson = lessons[id];
+    document.getElementById("lessonTitle").innerText = currentLesson.title;
+    document.getElementById("content").innerText = currentLesson.lesson;
+    document.getElementById("video").href = currentLesson.video;
+    document.getElementById("video").innerText = "Watch related video";
   }
 
   function showSummary() {
-    document.getElementById("content").innerText = current.summary;
+    if(currentLesson) {
+      document.getElementById("content").innerText = currentLesson.summary;
+    }
+  }
+
+  function showLesson() {
+    if(currentLesson) {
+      document.getElementById("content").innerText = currentLesson.lesson;
+    }
   }
 </script>
 
