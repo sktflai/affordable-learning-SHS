@@ -11,34 +11,45 @@
   <a href="lessons.html">Lessons</a>
   <a href="quiz.html">Tests</a>
   <a href="#" onclick="loadLesson('genMath')">Gen Math</a>
-
 </nav>
 
 <div class="container">
-  <h1>Lessons</h1>
-  <p>Lesson modules will appear here.</p>
+
+  <!-- This will get replaced by the lesson title -->
+  <h2 id="lessonTitle">Select a Lesson</h2>
+
+  <!-- Buttons to switch between full lesson and summary -->
+  <button onclick="showLesson()">Lesson</button>
+  <button onclick="showSummary()">Summary</button>
+
+  <!-- Content will be inserted here by JS -->
+  <div class="card" id="content"></div>
+
+  <!-- Link to video -->
+  <br>
+  <a id="video" target="_blank">📺 Watch Related Videos</a>
+
 </div>
 
-  <script src="js/data.js"></script>
+<script src="js/data.js"></script>
 <script>
   let current;
 
   function loadLesson(id) {
-    current = lessons[id]; // gets the lesson object from data.js
+    current = lessons[id];
     document.getElementById("lessonTitle").innerText = current.title;
     showLesson();
     document.getElementById("video").href = current.video;
   }
 
   function showLesson() {
-    content.innerText = current.lesson;
+    document.getElementById("content").innerText = current.lesson;
   }
 
   function showSummary() {
-    content.innerText = current.summary;
+    document.getElementById("content").innerText = current.summary;
   }
 </script>
-
 
 </body>
 </html>
