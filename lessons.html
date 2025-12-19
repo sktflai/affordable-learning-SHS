@@ -19,5 +19,26 @@
   <p>Lesson modules will appear here.</p>
 </div>
 
+  <script src="js/data.js"></script>
+<script>
+  let current;
+
+  function loadLesson(id) {
+    current = lessons[id]; // gets the lesson object from data.js
+    document.getElementById("lessonTitle").innerText = current.title;
+    showLesson();
+    document.getElementById("video").href = current.video;
+  }
+
+  function showLesson() {
+    content.innerText = current.lesson;
+  }
+
+  function showSummary() {
+    content.innerText = current.summary;
+  }
+</script>
+
+
 </body>
 </html>
